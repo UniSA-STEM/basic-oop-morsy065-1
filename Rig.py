@@ -1,24 +1,23 @@
 """
 File: Rig.py
-Description: <A brief description of this Python module.>
+Description: <Rig class represents a hacker's rig/computer>
 Author: Shahab Moradi
 ID: 110443633
 Username: morsy065
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
-from hacker import Hacker
-from asset import Asset
 import random
-
+# It has a name, damage counter, broken state, storage for assets, and an upgrade level
 class Rig:
     def __init__(self, name):
         self.__name = name
         self.__damage_counter = 0
         self.__broken_state = False
-        self.__storage = ["Data Spike", "Data Spike", "Removable Drive"]
+        self.__storage = ["Data Spike", "Data Spike", "Removable Drive",]
         self.__level = 0
-        self.__threshold = self.__level + 2
+        self.__threshold = self.__level + 2  # damage threshold before rig breaks
         
+    # method for taking hits from attacks
     def take_damage(self):
         if self.__broken_state == True:
             print(f"{self.__name} is already broken.")
@@ -34,6 +33,7 @@ class Rig:
         else:
             print("Error")
 
+    # repair rig using CryptoToken from hacker inventory
     def repair(self):
         if self.__damage_counter == 0:
             print("No repair is needed!")
@@ -48,6 +48,7 @@ class Rig:
         else:
             print("Error")
 
+    # upgrade rig using Hardware Patch
     def upgrade(self):
         if "Hardware Patch" in Hacker.__inventory:
             Hacker.__inventory.remove("Hardware Patch")
@@ -60,18 +61,27 @@ class Rig:
         else:
             print("Error")
 
+    # generate a random asset and add it to storage
     def generate_asset(self):
         assets = ["CryptoToken", "Hardware Patch", "Data Spike", "Removable Drive"]
         random_asset = random.choice(assets)
         self.__storage.append(random_asset)
         print(f"{random_asset} has been added to the storage!")
 
+    # store a given asset in the rig
     def store_asset(self, asset):
-        if Asset.__encrypted == True:
+        self.__storage.append(asset)
 
-    def retrive_asset(self):
+    # remove an asset from storage if it exists
+    def retrieve_asset(self, asset):
+        if asset in self.__storage:
+            self.__storage.remove(asset)
 
+    # get list of assets currently in storage
+    def get_storage(self):
+        return self.__storage
     
+    # shows the condition of the rig (pristine, damaged, broken)
     def condition(self):
         if self.__damage_counter == 0:
             print(f"Prsitine ({self.__level})")
@@ -85,5 +95,6 @@ class Rig:
         else:
             print("Error")
 
+    # string method of the rig
     def __str__(self):
         print(f"{self.__name}, {self.condition()}, {self.__level}, {self.__storage}")
