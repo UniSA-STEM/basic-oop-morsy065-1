@@ -15,6 +15,9 @@ class Hacker:
         self.__rig = False
         self.__trace_level = 0
 
+    def get_inventory(self):
+        return self.__inventory
+
     def buying_rig(self):
         if "CryptoToken" in self.__inventory:
             self.__inventory.remove("CryptoToken")
