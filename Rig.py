@@ -7,6 +7,7 @@ Username: morsy065
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
 from hacker import Hacker
+from asset import Asset
 import random
 
 class Rig:
@@ -16,18 +17,18 @@ class Rig:
         self.__broken_state = False
         self.__storage = ["Data Spike", "Data Spike", "Removable Drive"]
         self.__level = 0
+        self.__threshold = self.__level + 2
         
     def take_damage(self):
         if self.__broken_state == True:
             print(f"{self.__name} is already broken.")
         
         self.__damage_counter += 1
-        threshold = self.__level + 2
 
-        if self.__damage_counter < threshold:
+        if self.__damage_counter < self.__threshold:
             print(f"{self.__name} took a hit!! Damage: {self.__damage_counter}")
 
-        elif self.__damage_counter == threshold:
+        elif self.__damage_counter == self.__threshold:
             self.__broken_state = True
             print(f"{self.__name} is broken!!")
         else:
@@ -66,5 +67,23 @@ class Rig:
         print(f"{random_asset} has been added to the storage!")
 
     def store_asset(self, asset):
-        
+        if Asset.__encrypted == True:
 
+    def retrive_asset(self):
+
+    
+    def condition(self):
+        if self.__damage_counter == 0:
+            print(f"Prsitine ({self.__level})")
+
+        elif 0 < self.__damage_counter > self.__threshold:
+            print(f"Damaged ({self.__level})")
+
+        elif self.__damage_counter >= self.__threshold:
+            print(f"Broken({self.__level})")
+
+        else:
+            print("Error")
+
+    def __str__(self):
+        print(f"{self.__name}, {self.condition()}, {self.__level}, {self.__storage}")
